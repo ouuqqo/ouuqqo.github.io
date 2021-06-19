@@ -12,3 +12,8 @@
 .markdown-body .highlight pre, .markdown-body pre {
     background-color: #1c1d21;
 }
+/*代码块行号背景*/
+figure.highlight td.gutter pre {
+    background-color: #1c1d21;
+}
+*/
