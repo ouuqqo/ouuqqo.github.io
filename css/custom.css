@@ -8,3 +8,8 @@
     src: local("Josefin Sans"), local("JosefinSans-Normal"), url("//lib.baomitu.com/fonts/josefin-sans/josefin-sans-regular.eot?#iefix") format("embedded-opentype"), url("//lib.baomitu.com/fonts/josefin-sans/josefin-sans-regular.woff2") format("woff2"), url("//lib.baomitu.com/fonts/josefin-sans/josefin-sans-regular.woff") format("woff"), url("//lib.baomitu.com/fonts/josefin-sans/josefin-sans-regular.ttf") format("truetype"), url("//lib.baomitu.com/fonts/josefin-sans/josefin-sans-regular.svg#JosefinSans") format("svg");
     /* Legacy iOS */
 }
+/* Katex 字体 */
+.katex .base {
+	font-family: Josefin Sans,-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+	font-size: 1rem;
+}
