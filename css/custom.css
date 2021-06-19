@@ -1,3 +1,4 @@
+/* 英文字体 */
 @font-face {
     font-family: "Josefin Sans";
     font-style: normal;
@@ -6,4 +7,8 @@
     /* IE9 Compat Modes */
     src: local("Josefin Sans"), local("JosefinSans-Normal"), url("//lib.baomitu.com/fonts/josefin-sans/josefin-sans-regular.eot?#iefix") format("embedded-opentype"), url("//lib.baomitu.com/fonts/josefin-sans/josefin-sans-regular.woff2") format("woff2"), url("//lib.baomitu.com/fonts/josefin-sans/josefin-sans-regular.woff") format("woff"), url("//lib.baomitu.com/fonts/josefin-sans/josefin-sans-regular.ttf") format("truetype"), url("//lib.baomitu.com/fonts/josefin-sans/josefin-sans-regular.svg#JosefinSans") format("svg");
     /* Legacy iOS */
+}
+/*代码块背景*/
+.markdown-body .highlight pre, .markdown-body pre {
+    background-color: #1c1d21;
 }
