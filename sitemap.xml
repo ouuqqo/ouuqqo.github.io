@@ -2,7 +2,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://ouuqqo.github.io/2021/06/20/Hexo+Github-Actions-ge-ren-bo-ke-da-jian-ji-lu/</loc>
+    <loc>http://ouuqqo.github.io/about/index.html</loc>
+    
+    <lastmod>2021-06-20</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://ouuqqo.github.io/2021/06/20/Hexo+Github-Actions-da-jian-ge-ren-bo-ke/</loc>
     
     <lastmod>2021-06-20</lastmod>
     
@@ -10,13 +17,6 @@
   
   <url>
     <loc>http://ouuqqo.github.io/2021/06/19/shi-neng-fen-xi/</loc>
-    
-    <lastmod>2021-06-20</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://ouuqqo.github.io/about/index.html</loc>
     
     <lastmod>2021-06-20</lastmod>
     
