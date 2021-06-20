@@ -203,7 +203,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.3k 字
+      1.5k 字
     </span>
   
 
@@ -249,11 +249,9 @@
 <h3 id="搭建博客-2"><a class="markdownIt-Anchor" href="#搭建博客-2"></a> 搭建博客</h3>
 <p>找个地方新建文件夹，在该文件夹打开 cmd 输入 <code>hexo init</code> 初始化文件夹，接着输入 <code>npm install</code> 安装必备的组件。</p>
 <p>输入 <code>hexo s</code>，在浏览器打开 <a target="_blank" rel="noopener" href="http://localhost:4000/">localhost:4000/</a> 即可预览博客。</p>
-<h3 id="配置博客"><a class="markdownIt-Anchor" href="#配置博客"></a> 配置博客</h3>
-<p>打开 <code>\_config.yml</code> 文件，修改最后一行的 <code>deploy</code> 配置</p>
-<figure class="highlight yml"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs yml"><span class="hljs-attr">deploy:</span><br>  <span class="hljs-attr">type:</span> <span class="hljs-string">git</span><br>  <span class="hljs-attr">repo:</span> <span class="hljs-string">https://github.com/ouuqqo/ouuqqo.github.io</span><br>  <span class="hljs-attr">branch:</span> <span class="hljs-string">master</span><br></code></pre></div></td></tr></table></figure>
 <h3 id="更换主题"><a class="markdownIt-Anchor" href="#更换主题"></a> 更换主题</h3>
-<p>把 <a target="_blank" rel="noopener" href="https://github.com/fluid-dev/hexo-theme-fluid">Fluid</a> 主题下载解压到 <code>\themes</code> 文件夹，按照主题文档完成相关配置。</p>
+<p>把 <a target="_blank" rel="noopener" href="https://github.com/fluid-dev/hexo-theme-fluid">Fluid</a> 主题下载解压到 <code>\themes</code> 文件夹，按照主题文档完成相关配置，包括数学公式，文章置顶等。</p>
+<p>新建 <code>\source\css\custom.css</code> 文件夹可以自定义 css。</p>
 <h3 id="站点地图"><a class="markdownIt-Anchor" href="#站点地图"></a> 站点地图</h3>
 <p>在博客根目录打开 cmd 输入</p>
 <figure class="highlight plaintext"><figcaption><span>i</span></figcaption><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs npm">npm i hexo-generator-sitemap --save<br>npm i hexo-generator-baidu-sitemap --save<br></code></pre></div></td></tr></table></figure>
@@ -268,6 +266,12 @@
 <p>之后在博客的 Front-matter 区域加入</p>
 <figure class="highlight md"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs md">password: <br></code></pre></div></td></tr></table></figure>
 <p>即可设置密码。</p>
+<h3 id="配置博客"><a class="markdownIt-Anchor" href="#配置博客"></a> 配置博客</h3>
+<p>打开 <code>\_config.yml</code> 文件，修改最后一行的 <code>deploy</code> 配置，因为要使用 Github Actions 发布所以 <code>repo</code> 只能使用 ssh 格式。</p>
+<figure class="highlight yml"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs yml"><span class="hljs-attr">deploy:</span><br>  <span class="hljs-attr">type:</span> <span class="hljs-string">git</span><br>  <span class="hljs-attr">repo:</span> <span class="hljs-string">git@github.com:ouuqqo/ouuqqo.github.io.git</span><br>  <span class="hljs-attr">branch:</span> <span class="hljs-string">master</span><br></code></pre></div></td></tr></table></figure>
+<p>打开 <code>\scaffolds\post.md</code> 文件修改 post 模板：</p>
+<figure class="highlight md"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs md">title: &#123;&#123; title &#125;&#125;<br>date: &#123;&#123; date &#125;&#125;<br>index<span class="hljs-emphasis">_img: </span><br><span class="hljs-emphasis">banner_</span>img: <br>sticky: <br>categories: <br>tags: <br>excerpt: <br></code></pre></div></td></tr></table></figure>
+<p>注意提交时如果有某项为空需要删去。</p>
 <h3 id="快捷创建"><a class="markdownIt-Anchor" href="#快捷创建"></a> 快捷创建</h3>
 <p>在博客根目录新建 <code>_new post.bat</code>，输入</p>
 <figure class="highlight cmd"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs cmd">hexo new _new<br></code></pre></div></td></tr></table></figure>
@@ -335,8 +339,12 @@
 <p>更改了 <code>blog</code> 仓库中的内容后会出现本地和远程仓库不对应，此时应先用</p>
 <figure class="highlight cmd"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs cmd">git pull origin master<br></code></pre></div></td></tr></table></figure>
 <p>拉取远程仓库的更新再同步。</p>
-<p>任何更新后都应先用 <code>hexo clean</code> 清除缓存在用 <code>hexo s</code> 预览博客。</p>
+<p>任何更新后都应先用 <code>hexo clean</code> 清除缓存再用 <code>hexo s</code> 预览博客。</p>
 <p><code>npm list --depth=0</code> 可以查看安装的所有包（不含依赖）。</p>
+<h2 id="参考"><a class="markdownIt-Anchor" href="#参考"></a> 参考</h2>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/35668237">超详细Hexo+Github博客搭建小白教程 - 知乎 (zhihu.com)</a></p>
+<p><a target="_blank" rel="noopener" href="https://sanonz.github.io/2020/deploy-a-hexo-blog-from-github-actions/">利用 Github Actions 自动部署 Hexo 博客 | Sanonz</a></p>
+<p><a target="_blank" rel="noopener" href="https://hdj.me/github-actions-hexo-cicd/">如何正确的使用 GitHub Actions 实现 Hexo 博客的 CICD | 喵了个咪 (hdj.me)</a></p>
 
             </div>
             <hr>
