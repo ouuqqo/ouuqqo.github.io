@@ -250,11 +250,11 @@
 <p>找个地方新建文件夹，在该文件夹打开 cmd 输入 <code>hexo init</code> 初始化文件夹，接着输入 <code>npm install</code> 安装必备的组件。</p>
 <p>输入 <code>hexo s</code>，在浏览器打开 <a target="_blank" rel="noopener" href="http://localhost:4000/">localhost:4000/</a> 即可预览博客。</p>
 <h3 id="更换主题"><a class="markdownIt-Anchor" href="#更换主题"></a> 更换主题</h3>
-<p>把 <a target="_blank" rel="noopener" href="https://github.com/fluid-dev/hexo-theme-fluid">Fluid</a> 主题下载解压到 <code>\themes</code> 文件夹，按照主题文档完成相关配置，包括数学公式，文章置顶等。</p>
+<p>把 <a target="_blank" rel="noopener" href="https://github.com/fluid-dev/hexo-theme-fluid">Fluid</a> 主题下载解压到 <code>\themes</code> 文件夹，按照主题文档完成相关配置，包括数学公式，文章排序等。</p>
 <p>新建 <code>\source\css\custom.css</code> 文件夹可以自定义 css。</p>
 <h3 id="站点地图"><a class="markdownIt-Anchor" href="#站点地图"></a> 站点地图</h3>
 <p>在博客根目录打开 cmd 输入</p>
-<figure class="highlight plaintext"><figcaption><span>i</span></figcaption><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs npm">npm i hexo-generator-sitemap --save<br>npm i hexo-generator-baidu-sitemap --save<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs npm">npm i hexo-generator-sitemap --save<br>npm i hexo-generator-baidu-sitemap --save<br></code></pre></div></td></tr></table></figure>
 <p>安装插件，然后打开 <code>\_config.yml</code> 在最后加入</p>
 <figure class="highlight yml"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs yml"><span class="hljs-attr">Plugins:</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-string">hexo-generator-sitemap</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-string">hexo-generator-baidu-sitemap</span><br><br><span class="hljs-attr">sitemap:</span><br>  <span class="hljs-attr">path:</span> <span class="hljs-string">sitemap.xml</span><br><span class="hljs-attr">baidusitemap:</span><br>  <span class="hljs-attr">path:</span> <span class="hljs-string">baidusitemap.xml</span><br></code></pre></div></td></tr></table></figure>
 <p>之后博客就会慢慢被 Google 和 Baidu 收录了。</p>
@@ -310,7 +310,7 @@
 <p>设置好 Github 用户名和注册邮箱。</p>
 <p>然后生成 SSH key</p>
 <figure class="highlight cmd"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs cmd">ssh-keygen -t rsa -C &quot;ouuqqo@gmail.com&quot;<br></code></pre></div></td></tr></table></figure>
-<p>打开 <a href="github.com">Github</a>，<code>settings -&gt; SSH and GPG keys</code>，点击 <code>New SSH key</code>。</p>
+<p>打开 <a href="github.com">Github</a> 点击个人头像 <code>settings -&gt; SSH and GPG keys</code>，点击 <code>New SSH key</code>。</p>
 <p>打开 <code>C:\Users\Administrator\.ssh\id_rsa.pub</code>，将内容复制到 <code>Key</code> 框中，<code>Title</code> 框随便填写，点击确定。</p>
 <p>输入 <code>ssh -T git@github.com</code>，出现用户名即成功。</p>
 <h3 id="同步到-github"><a class="markdownIt-Anchor" href="#同步到-github"></a> 同步到 Github</h3>
@@ -341,6 +341,7 @@
 <p>拉取远程仓库的更新再同步。</p>
 <p>任何更新后都应先用 <code>hexo clean</code> 清除缓存再用 <code>hexo s</code> 预览博客。</p>
 <p><code>npm list --depth=0</code> 可以查看安装的所有包（不含依赖）。</p>
+<p>更换设备只需要重新进行一次 <a href="https://ouuqqo.github.io/2021/06/20/Hexo+Github-Actions-da-jian-ge-ren-bo-ke/#%E5%B0%86%E5%8D%9A%E5%AE%A2%E5%90%8C%E6%AD%A5%E5%88%B0-github">将博客同步到 Github</a> 即可。</p>
 <h2 id="参考"><a class="markdownIt-Anchor" href="#参考"></a> 参考</h2>
 <p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/35668237">超详细Hexo+Github博客搭建小白教程 - 知乎 (zhihu.com)</a></p>
 <p><a target="_blank" rel="noopener" href="https://eericzeng.github.io/2019/07/14/hexo%E5%8D%9A%E5%AE%A2%E7%AB%99%E7%82%B9sitemap%E7%9A%84%E4%BD%BF%E7%94%A8/">hexo博客站点sitemap的使用 | EricZeng (eericzeng.github.io)</a></p>
