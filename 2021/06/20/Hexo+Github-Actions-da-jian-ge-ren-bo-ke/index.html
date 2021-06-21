@@ -203,7 +203,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.5k 字
+      1.6k 字
     </span>
   
 
@@ -310,11 +310,14 @@
 <p>设置好 Github 用户名和注册邮箱。</p>
 <p>然后生成 SSH key</p>
 <figure class="highlight cmd"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs cmd">ssh-keygen -t rsa -C &quot;ouuqqo@gmail.com&quot;<br></code></pre></div></td></tr></table></figure>
-<p>打开 <a href="github.com">Github</a> 点击个人头像 <code>settings -&gt; SSH and GPG keys</code>，点击 <code>New SSH key</code>。</p>
+<p>打开 <a href="github.com">Github</a> 点击个人头像 <code>Settings -&gt; SSH and GPG keys</code>，点击 <code>New SSH key</code>。</p>
 <p>打开 <code>C:\Users\Administrator\.ssh\id_rsa.pub</code>，将内容复制到 <code>Key</code> 框中，<code>Title</code> 框随便填写，点击确定。</p>
 <p>输入 <code>ssh -T git@github.com</code>，出现用户名即成功。</p>
 <h3 id="同步到-github"><a class="markdownIt-Anchor" href="#同步到-github"></a> 同步到 Github</h3>
 <p>在博客根目录打开 cmd 输入</p>
+<figure class="highlight cmd"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs cmd">git init<br></code></pre></div></td></tr></table></figure>
+<p>预处理 git，可以看到一个隐藏的 <code>\.git</code> 文件夹。</p>
+<p>输入</p>
 <figure class="highlight cmd"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs cmd">git remote origin https://github.com/ouuqqo/blog.git<br></code></pre></div></td></tr></table></figure>
 <p>创建名为 origin 的远程仓库。</p>
 <p>输入</p>
