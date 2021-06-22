@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+<html lang="zh-CN" data-default-color-scheme=&quot;auto&quot;>
 
 
 
@@ -199,7 +199,6 @@
   
   
   
-  
     
     
     <div class="category row">
@@ -218,7 +217,6 @@
       <div class="category-collapse">
         
         
-          
   <div id="collapse-078425eaf316a180b0989442e53f920b" class="collapse in" role="tabpanel"
        aria-labelledby="heading-078425eaf316a180b0989442e53f920b">
     
@@ -239,6 +237,7 @@
     
   </div>
 
+          
         
       </div>
     </div>
@@ -261,7 +260,6 @@
       <div class="category-collapse">
         
         
-          
   <div id="collapse-126ac9f6149081eb0e97c2e939eaad52" class="collapse in" role="tabpanel"
        aria-labelledby="heading-126ac9f6149081eb0e97c2e939eaad52">
     
@@ -275,6 +273,7 @@
     
   </div>
 
+          
         
       </div>
     </div>
@@ -297,7 +296,6 @@
       <div class="category-collapse">
         
         
-          
   <div id="collapse-7051dc52c184c205e39aa54b4664ae9b" class="collapse in" role="tabpanel"
        aria-labelledby="heading-7051dc52c184c205e39aa54b4664ae9b">
     
@@ -311,9 +309,11 @@
     
   </div>
 
+          
         
       </div>
     </div>
+  
   
 </div>
 
@@ -436,5 +436,20 @@
 <script  src="/js/boot.js" ></script>
 
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>
