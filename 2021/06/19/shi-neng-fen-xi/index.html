@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&quot;auto&quot;>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
 
 
 
@@ -64,7 +64,11 @@
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.4.0"></head>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
 
 
 <body>
@@ -237,7 +241,7 @@
             <h1 style="display: none">势能分析</h1>
             
             <div class="markdown-body">
-              <h2 id="Splay-的复杂度证明"><a href="#Splay-的复杂度证明" class="headerlink" title="Splay 的复杂度证明"></a>Splay 的复杂度证明</h2><h3 id="记号"><a href="#记号" class="headerlink" title="记号"></a>记号</h3><p>记 $siz(x)$ 表示 x 的子树大小，定义节点的势能函数 $\phi(x)=\log<em>2(siz(x))$，整棵 Splay 的势能 $\Phi=\sum\limits</em>{i=1}^n\phi(i)$。</p>
+              <h2 id="Splay-的复杂度证明"><a href="#Splay-的复杂度证明" class="headerlink" title="Splay 的复杂度证明"></a>Splay 的复杂度证明</h2><h3 id="记号"><a href="#记号" class="headerlink" title="记号"></a>记号</h3><p>记 $siz(x)$ 表示 x 的子树大小，定义节点的势能函数 $\phi(x)=\log_2(siz(x))$，整棵 Splay 的势能 $\Phi=\sum\limits_{i=1}^n\phi(i)$。</p>
 <h3 id="splay"><a href="#splay" class="headerlink" title="splay"></a>splay</h3><h4 id="单旋"><a href="#单旋" class="headerlink" title="单旋"></a>单旋</h4><p><img src="https://cdn.jsdelivr.net/gh/ouuqqo/ImageHosting/images/20210620203903.png" srcset="/img/loading.gif" lazyload alt=""></p>
 <script type="math/tex; mode=display">
 \begin{aligned}
@@ -291,7 +295,7 @@ siz'(y)siz'(z)<\frac14siz'(x)^2</script><p>所以</p>
 <p>$siz(x)$：$rsz(x)+vsz(x)$。</p>
 <h3 id="access"><a href="#access" class="headerlink" title="access"></a>access</h3><p>可以发现 access 操作过程中在数棵 Splay 中 splay，类似这样：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/ouuqqo/ImageHosting/images/20210620154612.png" srcset="/img/loading.gif" lazyload alt=""></p>
-<p>定义势能函数 $\phi(x)=\log<em>2(siz(x))$，整个 LCT 的势能 $\Phi=\sum\limits</em>{i=1}^n\phi(i)$。</p>
+<p>定义势能函数 $\phi(x)=\log_2(siz(x))$，整个 LCT 的势能 $\Phi=\sum\limits_{i=1}^n\phi(i)$。</p>
 <p>那么 splay 的势能增量之和即为 $3(\phi(b)-\phi(a))+3(\phi(d)-\phi(c))+3(\phi(f)-\phi(e))$，注意到我们定义的势能函数包括辅助树子树中所有点的 $siz$ 之和，所以 $\phi(a)\le \phi(b)&lt;\phi(c)\le \phi(d)&lt;\phi(e)\le \phi(f)$，那么全部消去，即得 $3(\phi(f)-\phi(a))&lt;3\log_2n$。</p>
 <p>势能永远 $\ge 0$，初始势能 $\le n\log_2 n$，所以 n 个点的 LCT 进行 m 次 access，双旋中的旋转次数最多为 $(n+3m)\log_2n$。</p>
 <p>一次 access 还进行了最多为 splay 次数的单旋和虚实链切换。</p>
@@ -577,20 +581,5 @@ siz'(y)siz'(z)<\frac14siz'(x)^2</script><p>所以</p>
 <script  src="/js/boot.js" ></script>
 
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>
