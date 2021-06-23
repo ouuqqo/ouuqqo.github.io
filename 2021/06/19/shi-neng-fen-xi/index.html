@@ -296,7 +296,7 @@ siz'(y)siz'(z)<\frac14siz'(x)^2</script><p>所以</p>
 <h3 id="access"><a href="#access" class="headerlink" title="access"></a>access</h3><p>可以发现 access 操作过程中在数棵 Splay 中 splay，类似这样：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/ouuqqo/ImageHosting/images/20210620154612.png" srcset="/img/loading.gif" lazyload alt=""></p>
 <p>定义势能函数 $\phi(x)=\log_2(siz(x))$，整个 LCT 的势能 $\Phi=\sum\limits_{i=1}^n\phi(i)$。</p>
-<p>那么 splay 的势能增量之和即为 $3(\phi(b)-\phi(a))+3(\phi(d)-\phi(c))+3(\phi(f)-\phi(e))$，注意到我们定义的势能函数包括辅助树子树中所有点的 $siz$ 之和，所以 $\phi(a)\le \phi(b)&lt;\phi(c)\le \phi(d)&lt;\phi(e)\le \phi(f)$，那么全部消去，即得 $3(\phi(f)-\phi(a))&lt;3\log_2n$。</p>
+<p>那么 splay 的势能增量之和即为 $3(\phi(b)-\phi(a))+3(\phi(d)-\phi(c))+3(\phi(f)-\phi(e))$，注意到我们定义的势能函数包括辅助树子树中所有点的 $siz$ 之和，所以 $\phi(a)\le\phi(b)&lt;\phi(c)\le\phi(d)&lt;\phi(e)\le\phi(f)$，那么全部消去，即得 $3(\phi(f)-\phi(a))&lt;3\log_2n$。</p>
 <p>势能永远 $\ge 0$，初始势能 $\le n\log_2 n$，所以 n 个点的 LCT 进行 m 次 access，双旋中的旋转次数最多为 $(n+3m)\log_2n$。</p>
 <p>一次 access 还进行了最多为 splay 次数的单旋和虚实链切换。</p>
 <p>如果 $siz(x)\ge siz(fa(x))$，那么我们称 x 为 $fa(x)$ 的重儿子，$fa(x)$ 的其他儿子为轻儿子。</p>
