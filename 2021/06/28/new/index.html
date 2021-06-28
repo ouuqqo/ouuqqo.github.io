@@ -195,8 +195,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-06-19 13:49" pubdate>
-        2021年6月19日 下午
+      <time datetime="2021-06-28 17:28" pubdate>
+        2021年6月28日 下午
       </time>
     </span>
   
@@ -207,7 +207,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      67 字
+      3k 字
     </span>
   
 
@@ -243,45 +243,19 @@
             <div class="markdown-body">
               <h2 id="Splay-的复杂度证明"><a href="#Splay-的复杂度证明" class="headerlink" title="Splay 的复杂度证明"></a>Splay 的复杂度证明</h2><h3 id="记号"><a href="#记号" class="headerlink" title="记号"></a>记号</h3><p>记 $siz(x)$ 表示 x 的子树大小，定义节点的势能函数 $\phi(x)=\log_2(siz(x))$，整棵 Splay 的势能 $\Phi=\sum\limits_{i=1}^n\phi(i)$。</p>
 <h3 id="splay"><a href="#splay" class="headerlink" title="splay"></a>splay</h3><h4 id="单旋"><a href="#单旋" class="headerlink" title="单旋"></a>单旋</h4><p><img src="https://cdn.jsdelivr.net/gh/ouuqqo/ImageHosting/images/20210620203903.png" srcset="/img/loading.gif" lazyload alt=""></p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-\Delta\Phi&=\phi'(x)+\phi'(y)-\phi(x)-\phi(y)\\
-&=\phi'(y)-\phi(x)\\
-&<\phi'(x)-\phi(x)
-\end{aligned}</script><h4 id="双旋"><a href="#双旋" class="headerlink" title="双旋"></a>双旋</h4><p><img src="https://cdn.jsdelivr.net/gh/ouuqqo/ImageHosting/images/20210620204221.png" srcset="/img/loading.gif" lazyload alt=""></p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-\Delta\Phi&=\phi'(x)+\phi'(y)+\phi'(z)-\phi(x)-\phi(y)-\phi(z)\\
-&=\phi'(y)+\phi'(z)-\phi(x)-
-\phi(y)\\
-&<\phi'(x)+\phi'(z)-2\phi(x)
-\end{aligned}</script><p>因为</p>
-<script type="math/tex; mode=display">
-siz(x)+siz'(z)=2+siz(A)+siz(B)+siz(C)+siz(D)<siz'(x)</script><p>所以</p>
-<script type="math/tex; mode=display">
-siz(x)siz'(z)<\frac14siz'(x)^2</script><p>所以</p>
-<script type="math/tex; mode=display">
-\phi(x)+\phi'(z)-2\phi'(x)=\log_2\left(\frac{siz(x)siz'(z)}{siz'(x)^2}\right)<\log_2(\frac14)=-2</script><p>即</p>
-<script type="math/tex; mode=display">
--(\phi(x)+\phi'(z)-2\phi'(x))-2>0</script><p>原式加上上式</p>
-<script type="math/tex; mode=display">
-\Delta\Phi<\phi'(x)+\phi'(z)-2\phi(x)-(\phi(x)+\phi'(z)-2\phi'(x))-2=3(\phi'(x)-\phi(x))-2</script><p><img src="https://cdn.jsdelivr.net/gh/ouuqqo/ImageHosting/images/20210620204701.png" srcset="/img/loading.gif" lazyload alt=""></p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-\Delta\Phi&=\phi'(x)+\phi'(y)+\phi'(z)-\phi(x)-\phi(y)-\phi(z)\\
-&=\phi'(y)+\phi'(z)-\phi(x)-\phi(y)\\
-&<\phi'(y)+\phi'(z)-2\phi(x)
-\end{aligned}</script><p>因为</p>
-<script type="math/tex; mode=display">
-siz'(y)+siz'(z)<siz'(x)</script><p>所以</p>
-<script type="math/tex; mode=display">
-siz'(y)siz'(z)<\frac14siz'(x)^2</script><p>所以</p>
-<script type="math/tex; mode=display">
-\phi'(y)+\phi'(z)-2\phi'(x)=\log_2\left(\frac{siz'(y)siz'(z)}{siz'(x)^2}\right)<\log_2\left(\frac14\right)=-2</script><p>即</p>
-<script type="math/tex; mode=display">
--(\phi'(y)+\phi'(z)-2\phi'(x))-2>0</script><p>原式加上上式</p>
-<script type="math/tex; mode=display">
-\Delta\Phi<\phi'(y)+\phi'(z)-2\phi(x)-(\phi'(y)+\phi'(z)-2\phi'(x))-2=2(\phi'(x)-\phi(x))-2</script><p>双旋势能变化量中的 $-2$ 刚好和两次旋转相抵消， 相当于没有旋转消耗仅增加势能。</p>
+<h4 id="双旋"><a href="#双旋" class="headerlink" title="双旋"></a>双旋</h4><p><img src="https://cdn.jsdelivr.net/gh/ouuqqo/ImageHosting/images/20210620204221.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p>因为</p>
+<p>所以</p>
+<p>所以</p>
+<p>即</p>
+<p>原式加上上式</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ouuqqo/ImageHosting/images/20210620204701.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p>因为</p>
+<p>所以</p>
+<p>所以</p>
+<p>即</p>
+<p>原式加上上式</p>
+<p>双旋势能变化量中的 $-2$ 刚好和两次旋转相抵消， 相当于没有旋转消耗仅增加势能。</p>
 <p>单旋的消耗没有办法被抵消，但仅在终点处进行最多 1 次。</p>
 <p>设一次 splay 的起点为 x，终点为 y，中间的点可以全部消掉，所以势能增量为 $3(\phi(y)-\phi(x))&lt;3\log_2n$。</p>
 <p>因为势能永远 $\ge 0$，初始势能 $\le n\log_2 n$，所以 n 个点的 Splay 进行 m 次 splay 的旋转次数最多为 $(n+3m)\log_2 n+m$。</p>
@@ -378,15 +352,15 @@ siz'(y)siz'(z)<\frac14siz'(x)^2</script><p>所以</p>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/06/20/Hexo+GitHub-Actions-da-jian-bo-ke/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Hexo + GitHub Actions 搭建博客</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
+                    
+                      <a href="/2021/06/22/sheng-cheng-han-shu/">
+                        <span class="hidden-mobile">生成函数</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
                     
                   </article>
                 </div>
