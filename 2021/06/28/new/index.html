@@ -1,0 +1,559 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.jpg">
+  <link rel="icon" href="/img/favicon.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="Splay，LCT 和 AAA Tree 的复杂度证明。">
+  <meta name="author" content="ouuqqo">
+  <meta name="keywords" content="">
+  
+  <title>势能分析 - ouuqqo</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/an-old-hope.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"ouuqqo.github.io","root":"/","version":"1.8.11","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"¶"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 30vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>ouuqqo</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="势能分析">
+              
+                势能分析
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-06-28 17:28" pubdate>
+        2021年6月28日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3k 字
+    </span>
+  
+
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">势能分析</h1>
+            
+            <div class="markdown-body">
+              <h2 id="Splay-的复杂度证明"><a href="#Splay-的复杂度证明" class="headerlink" title="Splay 的复杂度证明"></a>Splay 的复杂度证明</h2><h3 id="记号"><a href="#记号" class="headerlink" title="记号"></a>记号</h3><p>记 $siz(x)$ 表示 x 的子树大小，定义节点的势能函数 $\phi(x)=\log_2(siz(x))$，整棵 Splay 的势能 $\Phi=\sum\limits_{i=1}^n\phi(i)$。</p>
+<h3 id="splay"><a href="#splay" class="headerlink" title="splay"></a>splay</h3><h4 id="单旋"><a href="#单旋" class="headerlink" title="单旋"></a>单旋</h4><p><img src="https://cdn.jsdelivr.net/gh/ouuqqo/ImageHosting/images/20210620203903.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<h4 id="双旋"><a href="#双旋" class="headerlink" title="双旋"></a>双旋</h4><p><img src="https://cdn.jsdelivr.net/gh/ouuqqo/ImageHosting/images/20210620204221.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p>因为</p>
+<p>所以</p>
+<p>所以</p>
+<p>即</p>
+<p>原式加上上式</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ouuqqo/ImageHosting/images/20210620204701.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p>因为</p>
+<p>所以</p>
+<p>所以</p>
+<p>即</p>
+<p>原式加上上式</p>
+<p>双旋势能变化量中的 $-2$ 刚好和两次旋转相抵消， 相当于没有旋转消耗仅增加势能。</p>
+<p>单旋的消耗没有办法被抵消，但仅在终点处进行最多 1 次。</p>
+<p>设一次 splay 的起点为 x，终点为 y，中间的点可以全部消掉，所以势能增量为 $3(\phi(y)-\phi(x))&lt;3\log_2n$。</p>
+<p>因为势能永远 $\ge 0$，初始势能 $\le n\log_2 n$，所以 n 个点的 Splay 进行 m 次 splay 的旋转次数最多为 $(n+3m)\log_2 n+m$。</p>
+<p>时间复杂度 $\mathcal O((n+m)\log n)$。</p>
+<h3 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h3><p>找到前驱 splay 到根（$3\log_2 n$），把该点插入到前驱和右儿子之间（$\log_2(siz(x))$），再旋转一下（$\log_2n-\log_2(siz(x))$）。</p>
+<p>旋转次数 $(n+4m)\log_2n+m$，时间复杂度 $O((n+m)\log n)$。</p>
+<h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><p>找到该点 splay 到根（$3\log_2 n$），再找到前驱 splay 到根的右儿子（$3\log_2 n$），把该点右儿子挂到前驱的右儿子上（$\log_2(n-1)-\log_2(siz(x))$），删除该点（$-\log_2n$）。</p>
+<p>旋转次数 $(n+6m)\log_2n+2m$，时间复杂度 $O((n+m)\log n)$。</p>
+<h2 id="Link-Cut-Tree-的复杂度证明"><a href="#Link-Cut-Tree-的复杂度证明" class="headerlink" title="Link Cut Tree 的复杂度证明"></a>Link Cut Tree 的复杂度证明</h2><h3 id="记号-1"><a href="#记号-1" class="headerlink" title="记号"></a>记号</h3><p>$rsz(x)$：辅助树的子树大小，$rsz(x)=rsz(ls(x))+rsz(rs(x))+1$。</p>
+<p>$vsz(x)$：辅助树子树内所有点的所有虚儿子的 $siz$ 之和，$vsz(ls(x))+vsz(rs(x))+\sum\limits_{y\in vs(x)}siz(y)$。</p>
+<p>$siz(x)$：$rsz(x)+vsz(x)$。</p>
+<h3 id="access"><a href="#access" class="headerlink" title="access"></a>access</h3><p>可以发现 access 操作过程中在数棵 Splay 中 splay，类似这样：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ouuqqo/ImageHosting/images/20210620154612.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p>定义势能函数 $\phi(x)=\log_2(siz(x))$，整个 LCT 的势能 $\Phi=\sum\limits_{i=1}^n\phi(i)$。</p>
+<p>那么 splay 的势能增量之和即为 $3(\phi(b)-\phi(a))+3(\phi(d)-\phi(c))+3(\phi(f)-\phi(e))$，注意到我们定义的势能函数包括辅助树子树中所有点的 $siz$ 之和，所以 $\phi(a)\le\phi(b)&lt;\phi(c)\le\phi(d)&lt;\phi(e)\le\phi(f)$，那么全部消去，即得 $3(\phi(f)-\phi(a))&lt;3\log_2n$。</p>
+<p>势能永远 $\ge 0$，初始势能 $\le n\log_2 n$，所以 n 个点的 LCT 进行 m 次 access，双旋中的旋转次数最多为 $(n+3m)\log_2n$。</p>
+<p>一次 access 还进行了最多为 splay 次数的单旋和虚实链切换。</p>
+<p>如果 $siz(x)\ge siz(fa(x))$，那么我们称 x 为 $fa(x)$ 的重儿子，$fa(x)$ 的其他儿子为轻儿子。</p>
+<p>定义势能函数 $\delta$ 表示实儿子和重儿子不同的节点个数。</p>
+<p>考虑 access 过程中的一次 splay 后，当前 Splay 的根：</p>
+<ul>
+<li>它是轻儿子，$\delta$ 增量 $\le 1$；</li>
+<li>它是重儿子，$\delta$ 减少 1，虚实链切换的消耗被抵消。</li>
+</ul>
+<p>因为一次 access 只会遇见最多 $\log_2n$ 个轻儿子，所以一次 access 的势能增加量最多为 $\log_2n$。</p>
+<p>势能永远 $\ge 0$，初始势能 $\le n$，所以 n 个点的 LCT 进行 m 次 access 的单旋和虚实链切换的次数最多为 $n+m\log_2n$。</p>
+<p>综上，n 个点的 LCT 进行 m 次  access 的旋转次数最多为 $(n+4m)\log_2n+n$，虚实链切换次数最多为 $n+m\log_2n$。</p>
+<p>时间复杂度 $\mathcal O((n+m)\log_2n)$。</p>
+<h2 id="AAA-Tree-的复杂度证明"><a href="#AAA-Tree-的复杂度证明" class="headerlink" title="AAA Tree 的复杂度证明"></a>AAA Tree 的复杂度证明</h2><h3 id="记号-2"><a href="#记号-2" class="headerlink" title="记号"></a>记号</h3><p>$ls(x)$：实 Splay 中的左儿子。</p>
+<p>$rs(x)$：实 Splay 中的右儿子。</p>
+<p>$vls(x)$：虚 Splay 中的左儿子。</p>
+<p>$vrs(x)$：虚 Splay 中的右儿子。</p>
+<p>$vs(x)$：虚儿子。</p>
+<p>$rsz(x)$：实 Splay 中的子树大小，$rsz(x)=rsz(ls(x))+rsz(rs(x))+1$。</p>
+<p>$vsz(x)$：虚 Splay 子树（不含）内所有点的 $siz$ 之和 + 虚儿子的 $siz$ + 实 Splay 子树（不含）中所有内的 $vsz$ 之和，$vsz(x)=siz(vls(x))+siz(vrs(x))+siz(vs(x))+siz(ls(x))+siz(rs(x))$。</p>
+<p>$siz(x)$：$rsz(x)+vsz(x)$。</p>
+<h3 id="access-1"><a href="#access-1" class="headerlink" title="access"></a>access</h3><h4 id="splay-1"><a href="#splay-1" class="headerlink" title="splay"></a>splay</h4><p>可以发现 access 的过程中虚 Splay 和实 Splay 中的 splay 交替进行，类似这样：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ouuqqo/ImageHosting/images/20210620153821.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p>定义节点的势能函数为 $\phi(x)=\log_2(siz(x))$。</p>
+<p>那么 splay 的势能变化量之和即为 $3(\phi(b)-\phi(a))+3(\phi(c)-\phi(b))+3(\phi(e)-\phi(d))+3(\phi(f)-\phi(e))+3(\phi(h)-\phi(g))+3(\phi(i)-\phi(h))$，注意到我们定义的势能函数包括实 Splay 子树中所有点的 $siz$ 之和，所以 $\phi(a)\le \phi(b)\le \phi(c)&lt;\phi(d)\le \phi(e)\le \phi(f)&lt;\phi(g)\le \phi(h)\le \phi(i)$，那么全部消去，即得 $3(\phi(i)-\phi(a))&lt;3\log_2n$。</p>
+<p>势能永远 $\ge 0$，初始势能 $\le n\log_2n$，所以 n 个点的 AAA Tree 进行 m 次 access，虚 Splay 中 splay 的旋转次数最多为 $(n+3m)\log_2n$，时间复杂度 $\mathcal O((n+m)\log n)$。</p>
+<h4 id="虚-Splay-中插入-amp-删除"><a href="#虚-Splay-中插入-amp-删除" class="headerlink" title="虚 Splay 中插入 &amp; 删除"></a>虚 Splay 中插入 &amp; 删除</h4><p>将 access 中换右儿子的操作分类处理。</p>
+<ul>
+<li>要换上的右儿子为空：仅将当前的右儿子插入虚 Splay 中，一次 access 仅有一次插入操作；</li>
+<li>当前右儿子为空：仅将要换上的右儿子从虚 Splay 中删除；</li>
+<li>当前右儿子和要换上的右儿子都非空：交换两个节点。</li>
+</ul>
+<p>右儿子为空即为链尾，且操作后链尾数量减少 1，而链尾数量仅可通过 link 操作每次增加 1，所以删除次数不超过 link 次数。</p>
+<p>所以 n 个点的 AAA Tree 进行 m 次 access 的插入、删除次数最多为 n，所含的旋转次数最多为 $12n\log_2n+3n$，时间复杂度 $\mathcal O(n\log n)$。</p>
+<p>综上，旋转次数 $(13n+3m)\log_2n+3n$，时间复杂度 $\mathcal O((n+m)\log n)$。</p>
+<p>一种五叉 AAA Tree 的实现：</p>
+<p><a target="_blank" rel="noopener" href="https://vjudge.net/problem/黑暗爆炸-3153">BZOJ 3153 Sone1</a></p>
+<figure class="highlight cpp"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs cpp"><span class="hljs-comment">// 5 叉 AAA Tree</span><br><span class="hljs-comment">// 常数和 3 叉 AAA Tree 相近但不需要 2 倍空间，代码长度相近 </span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;bits/stdc++.h&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span> ll;<br><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span> ull;<br><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">long</span> <span class="hljs-keyword">double</span> ldb;<br><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> gc getchar</span><br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">gi</span><span class="hljs-params">()</span> </span>&#123; <span class="hljs-comment">// cannot input -2147483648</span><br>	<span class="hljs-keyword">int</span> x = <span class="hljs-number">0</span>, c = <span class="hljs-built_in">gc</span>();<br>	<span class="hljs-keyword">bool</span> f = <span class="hljs-number">0</span>;<br>	<span class="hljs-keyword">for</span>(; !<span class="hljs-built_in">isdigit</span>(c); c = <span class="hljs-built_in">gc</span>()) <span class="hljs-keyword">if</span>(c == <span class="hljs-string">&#x27;-&#x27;</span>) f = <span class="hljs-number">1</span>;<br>	<span class="hljs-keyword">for</span>(; <span class="hljs-built_in">isdigit</span>(c); c = <span class="hljs-built_in">gc</span>()) x = x * <span class="hljs-number">10</span> + (c &amp; <span class="hljs-number">15</span>);<br>	<span class="hljs-keyword">return</span> f ? -x : x;<br>&#125;<br><br><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> N = <span class="hljs-number">100005</span>;<br><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> INF = (<span class="hljs-number">1u</span> &lt;&lt; <span class="hljs-number">31</span>) - <span class="hljs-number">1</span>;<br><br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Tag</span> &#123;</span><br>	<span class="hljs-keyword">int</span> mul, add;<br>	<span class="hljs-built_in">Tag</span>(): <span class="hljs-built_in">mul</span>(<span class="hljs-number">1</span>), <span class="hljs-built_in">add</span>(<span class="hljs-number">0</span>) &#123;&#125;<br>	<span class="hljs-built_in">Tag</span>(<span class="hljs-keyword">int</span> mul, <span class="hljs-keyword">int</span> add): <span class="hljs-built_in">mul</span>(mul), <span class="hljs-built_in">add</span>(add) &#123;&#125;<br>	<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">exis</span><span class="hljs-params">()</span> </span>&#123; <span class="hljs-keyword">return</span> (mul != <span class="hljs-number">1</span> || add != <span class="hljs-number">0</span>); &#125; <br>&#125;;<br><span class="hljs-keyword">int</span> <span class="hljs-keyword">operator</span> + (<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> &amp;l, <span class="hljs-keyword">const</span> Tag &amp;r) &#123;<br>	<span class="hljs-keyword">return</span> l * r.mul + r.add;<br>&#125;<br><span class="hljs-keyword">int</span>&amp; <span class="hljs-keyword">operator</span> += (<span class="hljs-keyword">int</span> &amp;l, <span class="hljs-keyword">const</span> Tag &amp;r) &#123;<br>	<span class="hljs-keyword">return</span> l = l + r;<br>&#125;<br>Tag <span class="hljs-keyword">operator</span> + (<span class="hljs-keyword">const</span> Tag &amp;l, <span class="hljs-keyword">const</span> Tag &amp;r) &#123;<br>	<span class="hljs-keyword">return</span> <span class="hljs-built_in">Tag</span>(l.mul * r.mul, l.add * r.mul + r.add);<br>&#125;<br>Tag&amp; <span class="hljs-keyword">operator</span> += (Tag &amp;l, <span class="hljs-keyword">const</span> Tag &amp;r) &#123;<br>	<span class="hljs-keyword">return</span> l = l + r;<br>&#125;<br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Data</span> &#123;</span><br>	<span class="hljs-keyword">int</span> siz, sum, mn, mx;<br>	<span class="hljs-built_in">Data</span>(): <span class="hljs-built_in">siz</span>(<span class="hljs-number">0</span>), <span class="hljs-built_in">sum</span>(<span class="hljs-number">0</span>), <span class="hljs-built_in">mn</span>(INF), <span class="hljs-built_in">mx</span>(-INF - <span class="hljs-number">1</span>) &#123;&#125;<br>	<span class="hljs-built_in">Data</span>(<span class="hljs-keyword">int</span> x): <span class="hljs-built_in">siz</span>(<span class="hljs-number">1</span>), <span class="hljs-built_in">sum</span>(x), <span class="hljs-built_in">mn</span>(x), <span class="hljs-built_in">mx</span>(x) &#123;&#125;<br>	<span class="hljs-built_in">Data</span>(<span class="hljs-keyword">int</span> siz, <span class="hljs-keyword">int</span> sum, <span class="hljs-keyword">int</span> mn, <span class="hljs-keyword">int</span> mx): <span class="hljs-built_in">siz</span>(siz), <span class="hljs-built_in">sum</span>(sum), <span class="hljs-built_in">mn</span>(mn), <span class="hljs-built_in">mx</span>(mx) &#123;&#125;<br>&#125;;<br>Data <span class="hljs-keyword">operator</span> + (<span class="hljs-keyword">const</span> Data &amp;l, <span class="hljs-keyword">const</span> Data &amp;r) &#123;<br>	<span class="hljs-keyword">return</span> <span class="hljs-built_in">Data</span>(l.siz + r.siz, l.sum + r.sum, <span class="hljs-built_in">min</span>(l.mn, r.mn), <span class="hljs-built_in">max</span>(l.mx, r.mx));<br>&#125;<br>Data&amp; <span class="hljs-keyword">operator</span> += (Data &amp;l, <span class="hljs-keyword">const</span> Data &amp;r) &#123;<br>	<span class="hljs-keyword">return</span> l = l + r;<br>&#125;<br>Data <span class="hljs-keyword">operator</span> + (<span class="hljs-keyword">const</span> Data &amp;l, <span class="hljs-keyword">const</span> Tag &amp;r) &#123;<br>	<span class="hljs-keyword">return</span> <span class="hljs-built_in">Data</span>(l.siz, l.sum * r.mul + l.siz * r.add, l.mn + r, l.mx + r);<br>&#125;<br>Data <span class="hljs-keyword">operator</span> += (Data &amp;l, <span class="hljs-keyword">const</span> Tag &amp;r) &#123;<br>	<span class="hljs-keyword">if</span>(!l.siz) <span class="hljs-keyword">return</span> l;<br>	<span class="hljs-keyword">return</span> l = l + r;<br>&#125;<br><br><span class="hljs-keyword">int</span> fa[N], ch[N][<span class="hljs-number">5</span>], val[N], rev[N];<br>Data datr[N], datv[N];<br>Tag tagr[N], tagv[N];<br><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> ls(x) ch[x][0]</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> rs(x) ch[x][1]</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> vls(x) ch[x][2]</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> vrs(x) ch[x][3]</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> vs(x) ch[x][4]</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> sum(x) (datr[x] + datv[x])</span><br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">pushup</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span> </span>&#123; <span class="hljs-comment">// assume that x != 0</span><br>	datr[x] = datr[<span class="hljs-built_in">ls</span>(x)] + datr[<span class="hljs-built_in">rs</span>(x)] + <span class="hljs-built_in">Data</span>(val[x]);<br>	datv[x] = datv[<span class="hljs-built_in">ls</span>(x)] + datv[<span class="hljs-built_in">rs</span>(x)] + <span class="hljs-built_in">sum</span>(<span class="hljs-built_in">vls</span>(x)) + <span class="hljs-built_in">sum</span>(<span class="hljs-built_in">vrs</span>(x)) + <span class="hljs-built_in">sum</span>(<span class="hljs-built_in">vs</span>(x));<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">flip</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span> </span>&#123;<br>	<span class="hljs-keyword">if</span>(!x) <span class="hljs-keyword">return</span>;<br>	rev[x] ^= <span class="hljs-number">1</span>;<br>	<span class="hljs-built_in">swap</span>(<span class="hljs-built_in">ls</span>(x), <span class="hljs-built_in">rs</span>(x));<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">push_real</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x, Tag v)</span> </span>&#123;<br>	<span class="hljs-keyword">if</span>(!x) <span class="hljs-keyword">return</span>;<br>	val[x] += v;<br>	datr[x] += v;<br>	tagr[x] += v;<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">push_virt</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x, Tag v)</span> </span>&#123;<br>	<span class="hljs-keyword">if</span>(!x) <span class="hljs-keyword">return</span>;<br>	datv[x] += v;<br>	tagv[x] += v;<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">push_all</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x, Tag v)</span> </span>&#123;<br>	<span class="hljs-keyword">if</span>(!x) <span class="hljs-keyword">return</span>;<br>	<span class="hljs-built_in">push_real</span>(x, v);<br>	<span class="hljs-built_in">push_virt</span>(x, v);<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">pushdown</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span> </span>&#123;<br>	<span class="hljs-keyword">if</span>(rev[x]) &#123;<br>		<span class="hljs-built_in">flip</span>(<span class="hljs-built_in">ls</span>(x));<br>		<span class="hljs-built_in">flip</span>(<span class="hljs-built_in">rs</span>(x));<br>		rev[x] = <span class="hljs-number">0</span>;<br>	&#125;<br>	<span class="hljs-keyword">if</span>(tagr[x].<span class="hljs-built_in">exis</span>()) &#123;<br>		<span class="hljs-built_in">push_real</span>(<span class="hljs-built_in">ls</span>(x), tagr[x]);<br>		<span class="hljs-built_in">push_real</span>(<span class="hljs-built_in">rs</span>(x), tagr[x]);<br>		tagr[x] = <span class="hljs-built_in">Tag</span>();<br>	&#125;<br>	<span class="hljs-keyword">if</span>(tagv[x].<span class="hljs-built_in">exis</span>()) &#123;<br>		<span class="hljs-built_in">push_virt</span>(<span class="hljs-built_in">ls</span>(x), tagv[x]);<br>		<span class="hljs-built_in">push_virt</span>(<span class="hljs-built_in">rs</span>(x), tagv[x]);<br>		<span class="hljs-built_in">push_all</span>(<span class="hljs-built_in">vls</span>(x), tagv[x]);<br>		<span class="hljs-built_in">push_all</span>(<span class="hljs-built_in">vrs</span>(x), tagv[x]);<br>		<span class="hljs-built_in">push_all</span>(<span class="hljs-built_in">vs</span>(x), tagv[x]);<br>		tagv[x] = <span class="hljs-built_in">Tag</span>();<br>	&#125;<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">notroot</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> k)</span> </span>&#123;<br>	<span class="hljs-keyword">return</span> (ch[fa[x]][k] == x || ch[fa[x]][k + <span class="hljs-number">1</span>] == x);<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">chk</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span> </span>&#123;<br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt;= <span class="hljs-number">3</span>; ++i) &#123;<br>		<span class="hljs-keyword">if</span>(ch[fa[x]][i] == x) <span class="hljs-keyword">return</span> i;<br>	&#125;<br>	<span class="hljs-keyword">return</span> <span class="hljs-number">4</span>;<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">chk</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> k)</span> </span>&#123; <span class="hljs-comment">// assume that fa[x] != 0</span><br>	<span class="hljs-keyword">return</span> k + (ch[fa[x]][k + <span class="hljs-number">1</span>] == x);<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">connect</span><span class="hljs-params">(<span class="hljs-keyword">int</span> f, <span class="hljs-keyword">int</span> k, <span class="hljs-keyword">int</span> x)</span> </span>&#123;<br>	fa[x] = f; ch[f][k] = x;<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">rotate</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> k)</span> </span>&#123; <span class="hljs-comment">// assume that x is not root</span><br>	<span class="hljs-keyword">int</span> y = fa[x], z = fa[y], w = <span class="hljs-built_in">chk</span>(x, k);<br>	<span class="hljs-built_in">connect</span>(y, w, ch[x][w ^ <span class="hljs-number">1</span>]);<br>	<span class="hljs-keyword">if</span>(k == <span class="hljs-number">0</span> &amp;&amp; !<span class="hljs-built_in">notroot</span>(y, <span class="hljs-number">0</span>)) &#123;<br>		<span class="hljs-built_in">connect</span>(x, <span class="hljs-number">2</span>, <span class="hljs-built_in">vls</span>(y));<br>		<span class="hljs-built_in">connect</span>(x, <span class="hljs-number">3</span>, <span class="hljs-built_in">vrs</span>(y));<br>		<span class="hljs-built_in">vls</span>(y) = <span class="hljs-built_in">vrs</span>(y) = <span class="hljs-number">0</span>;<br>	&#125;<br>	<span class="hljs-built_in">connect</span>(z, <span class="hljs-built_in">chk</span>(y), x);<br>	<span class="hljs-built_in">connect</span>(x, w ^ <span class="hljs-number">1</span>, y);<br>	<span class="hljs-built_in">pushup</span>(y);<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">pushpath</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> k)</span> </span>&#123;<br>	<span class="hljs-keyword">if</span>(<span class="hljs-built_in">notroot</span>(x, k)) &#123;<br>		<span class="hljs-built_in">pushpath</span>(fa[x], k);<br>	&#125;<br>	<span class="hljs-built_in">pushdown</span>(x);<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">splay</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> k)</span> </span>&#123; <span class="hljs-comment">// 0 to real, 2 to virtual</span><br>	<span class="hljs-built_in">pushpath</span>(x, k);<br>	<span class="hljs-keyword">while</span>(<span class="hljs-built_in">notroot</span>(x, k)) &#123;<br>		<span class="hljs-keyword">int</span> y = fa[x];<br>		<span class="hljs-keyword">if</span>(<span class="hljs-built_in">notroot</span>(y, k)) <span class="hljs-built_in">rotate</span>(<span class="hljs-built_in">chk</span>(x, k) == <span class="hljs-built_in">chk</span>(y, k) ? y : x, k);<br>		<span class="hljs-built_in">rotate</span>(x, k);<br>	&#125;<br>	<span class="hljs-built_in">pushup</span>(x);<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">getfa</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span> </span>&#123;<br>	<span class="hljs-built_in">splay</span>(x, <span class="hljs-number">2</span>);<br>	<span class="hljs-keyword">return</span> fa[x];<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">del</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span> </span>&#123; <span class="hljs-comment">// assume that x is the root of the virtual Splay </span><br>	<span class="hljs-keyword">if</span>(!x || !fa[x]) <span class="hljs-keyword">return</span>;<br>	<span class="hljs-built_in">pushdown</span>(x);<br>	<span class="hljs-keyword">if</span>(!<span class="hljs-built_in">vls</span>(x) || !<span class="hljs-built_in">vrs</span>(x)) &#123; <br>		<span class="hljs-built_in">connect</span>(fa[x], <span class="hljs-number">4</span>, <span class="hljs-built_in">vls</span>(x) | <span class="hljs-built_in">vrs</span>(x));<br>		<span class="hljs-built_in">pushup</span>(fa[x]);<br>		fa[x] = <span class="hljs-built_in">vls</span>(x) = <span class="hljs-built_in">vrs</span>(x) = <span class="hljs-number">0</span>;<br>		<span class="hljs-built_in">pushup</span>(x);<br>		<span class="hljs-keyword">return</span>;<br>	&#125;<br>	<span class="hljs-keyword">int</span> lef = <span class="hljs-built_in">vls</span>(x);<br>	<span class="hljs-keyword">while</span>(<span class="hljs-built_in">vrs</span>(lef)) &#123;<br>		lef = <span class="hljs-built_in">vrs</span>(lef);<br>	&#125;<br>	<span class="hljs-built_in">splay</span>(lef, <span class="hljs-number">2</span>);<br>	<span class="hljs-built_in">connect</span>(lef, <span class="hljs-number">3</span>, <span class="hljs-built_in">vrs</span>(x));<br>	<span class="hljs-built_in">pushup</span>(lef);<br>	fa[x] = <span class="hljs-built_in">vls</span>(x) = <span class="hljs-built_in">vrs</span>(x) = <span class="hljs-number">0</span>;<br>	<span class="hljs-built_in">pushup</span>(x);<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ins</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y)</span> </span>&#123; <span class="hljs-comment">// x -&gt; y</span><br>	<span class="hljs-keyword">if</span>(!x || !y) <span class="hljs-keyword">return</span>;<br>	<span class="hljs-built_in">pushdown</span>(y);<br>	<span class="hljs-keyword">if</span>(!ch[y][<span class="hljs-number">4</span>]) &#123;<br>		<span class="hljs-built_in">connect</span>(y, <span class="hljs-number">4</span>, x);<br>		<span class="hljs-built_in">pushup</span>(y);<br>		<span class="hljs-keyword">return</span>;<br>	&#125;<br>	y = ch[y][<span class="hljs-number">4</span>];<br>	<span class="hljs-keyword">while</span>(<span class="hljs-built_in">vls</span>(y)) &#123;<br>		<span class="hljs-built_in">pushdown</span>(y);<br>		y = <span class="hljs-built_in">vls</span>(y);<br>	&#125;<br>	<span class="hljs-built_in">pushdown</span>(y);<br>	<span class="hljs-built_in">connect</span>(y, <span class="hljs-number">2</span>, x);<br>	<span class="hljs-built_in">splay</span>(x, <span class="hljs-number">2</span>);<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">access</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span> </span>&#123;<br>	<span class="hljs-keyword">int</span> y = <span class="hljs-number">0</span>;<br>	<span class="hljs-keyword">while</span>(x) &#123;<br>		<span class="hljs-built_in">splay</span>(x, <span class="hljs-number">0</span>);<br>		<span class="hljs-keyword">if</span>(y &amp;&amp; <span class="hljs-built_in">rs</span>(x)) &#123; <span class="hljs-comment">// 交换两个点，单 log 的关键</span><br>			<span class="hljs-built_in">pushdown</span>(<span class="hljs-built_in">rs</span>(x));<br>			<span class="hljs-built_in">pushdown</span>(y);<br>			<span class="hljs-built_in">connect</span>(<span class="hljs-built_in">rs</span>(x), <span class="hljs-number">2</span>, <span class="hljs-built_in">vls</span>(y));<br>			<span class="hljs-built_in">connect</span>(<span class="hljs-built_in">rs</span>(x), <span class="hljs-number">3</span>, <span class="hljs-built_in">vrs</span>(y));<br>			<span class="hljs-built_in">vls</span>(y) = <span class="hljs-built_in">vrs</span>(y) = <span class="hljs-number">0</span>;<br>			<span class="hljs-built_in">pushup</span>(<span class="hljs-built_in">rs</span>(x));<br>			<span class="hljs-built_in">pushup</span>(y);<br>			<span class="hljs-built_in">connect</span>(x, <span class="hljs-number">4</span>, <span class="hljs-built_in">rs</span>(x));<br>		&#125;<br>		<span class="hljs-keyword">else</span> &#123;<br>			<span class="hljs-built_in">del</span>(y);<br>			<span class="hljs-built_in">ins</span>(<span class="hljs-built_in">rs</span>(x), x);<br>		&#125;<br>		<span class="hljs-built_in">connect</span>(x, <span class="hljs-number">1</span>, y);<br>		<span class="hljs-built_in">pushup</span>(x);<br>		y = x;<br>		x = <span class="hljs-built_in">getfa</span>(x);<br>	&#125;<br>	<span class="hljs-keyword">return</span> y;<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">lca</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y)</span> </span>&#123;<br>	<span class="hljs-built_in">access</span>(x);<br>	<span class="hljs-keyword">return</span> <span class="hljs-built_in">access</span>(y);<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">makeroot</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span> </span>&#123;<br>	<span class="hljs-built_in">access</span>(x);<br>	<span class="hljs-built_in">splay</span>(x, <span class="hljs-number">0</span>);<br>	<span class="hljs-built_in">flip</span>(x);<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">findroot</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span> </span>&#123;<br>	<span class="hljs-built_in">access</span>(x);<br>	<span class="hljs-built_in">splay</span>(x, <span class="hljs-number">0</span>);<br>	<span class="hljs-keyword">while</span>(<span class="hljs-built_in">ls</span>(x)) &#123;<br>		x = <span class="hljs-built_in">ls</span>(x); <span class="hljs-comment">// LCT 保证 rev 标记不会出现在 Splay 根的右子树里 </span><br>	&#125;<br>	<span class="hljs-built_in">splay</span>(x, <span class="hljs-number">0</span>);<br>	<span class="hljs-keyword">return</span> x;<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">split</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y)</span> </span>&#123;<br>	<span class="hljs-built_in">makeroot</span>(x);<br>	<span class="hljs-built_in">access</span>(y);<br>	<span class="hljs-built_in">splay</span>(y, <span class="hljs-number">0</span>);<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">link</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y)</span> </span>&#123;<br>	<span class="hljs-built_in">makeroot</span>(x);<br>	<span class="hljs-built_in">access</span>(y);<br>	<span class="hljs-built_in">splay</span>(y, <span class="hljs-number">0</span>);<br>	<span class="hljs-built_in">ins</span>(x, y);<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">cut</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span> </span>&#123;<br>	<span class="hljs-built_in">access</span>(x);<br>	<span class="hljs-built_in">splay</span>(x, <span class="hljs-number">0</span>);<br>	fa[<span class="hljs-built_in">ls</span>(x)] = <span class="hljs-number">0</span>;<br>	<span class="hljs-built_in">ls</span>(x) = <span class="hljs-number">0</span>;<br>	<span class="hljs-built_in">pushup</span>(x);<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">modifychain</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y, Tag v)</span> </span>&#123;<br>	<span class="hljs-built_in">split</span>(x, y);<br>	<span class="hljs-built_in">push_real</span>(y, v);<br>&#125;<br><span class="hljs-function">Data <span class="hljs-title">querychain</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y)</span> </span>&#123;<br>	<span class="hljs-built_in">split</span>(x, y);<br>	<span class="hljs-keyword">return</span> datr[y];<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">modifysubtree</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x, Tag v)</span> </span>&#123;<br>	<span class="hljs-built_in">access</span>(x);<br>	<span class="hljs-built_in">splay</span>(x, <span class="hljs-number">0</span>);<br>	val[x] += v;<br>	<span class="hljs-built_in">push_all</span>(<span class="hljs-built_in">vs</span>(x), v);<br>	<span class="hljs-built_in">pushup</span>(x);<br>&#125;<br><span class="hljs-function">Data <span class="hljs-title">querysubtree</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span> </span>&#123;<br>	<span class="hljs-built_in">access</span>(x);<br>	<span class="hljs-built_in">splay</span>(x, <span class="hljs-number">0</span>);<br>	<span class="hljs-keyword">return</span> <span class="hljs-built_in">Data</span>(val[x]) + <span class="hljs-built_in">sum</span>(<span class="hljs-built_in">vs</span>(x));<br>&#125;<br><br><span class="hljs-keyword">int</span> e[N][<span class="hljs-number">2</span>];<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>	<span class="hljs-keyword">int</span> n = <span class="hljs-built_in">gi</span>(), m = <span class="hljs-built_in">gi</span>();<br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; n; ++i) &#123;<br>		e[i][<span class="hljs-number">0</span>] = <span class="hljs-built_in">gi</span>();<br>		e[i][<span class="hljs-number">1</span>] = <span class="hljs-built_in">gi</span>();<br>	&#125;<br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; ++i) &#123;<br>		val[i] = <span class="hljs-built_in">gi</span>();<br>		<span class="hljs-built_in">pushup</span>(i);<br>	&#125;<br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; n; ++i) &#123;<br>		<span class="hljs-built_in">link</span>(e[i][<span class="hljs-number">0</span>], e[i][<span class="hljs-number">1</span>]);<br>	&#125;<br>	<span class="hljs-keyword">int</span> r = <span class="hljs-built_in">gi</span>();<br>	<span class="hljs-keyword">while</span>(m--) &#123;<br>		<span class="hljs-keyword">int</span> op = <span class="hljs-built_in">gi</span>();<br>		<span class="hljs-keyword">if</span>(op == <span class="hljs-number">0</span>) &#123;<br>			<span class="hljs-keyword">int</span> x = <span class="hljs-built_in">gi</span>(), y = <span class="hljs-built_in">gi</span>();<br>			<span class="hljs-built_in">makeroot</span>(r);<br>			<span class="hljs-built_in">modifysubtree</span>(x, <span class="hljs-built_in">Tag</span>(<span class="hljs-number">0</span>, y));<br>		&#125;<br>		<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(op == <span class="hljs-number">1</span>) &#123;<br>			r = <span class="hljs-built_in">gi</span>();<br>		&#125;<br>		<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(op == <span class="hljs-number">2</span>) &#123;<br>			<span class="hljs-keyword">int</span> x = <span class="hljs-built_in">gi</span>(), y = <span class="hljs-built_in">gi</span>(), z = <span class="hljs-built_in">gi</span>();<br>			<span class="hljs-built_in">modifychain</span>(x, y, <span class="hljs-built_in">Tag</span>(<span class="hljs-number">0</span>, z));<br>		&#125;<br>		<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(op == <span class="hljs-number">3</span>) &#123;<br>			<span class="hljs-keyword">int</span> x = <span class="hljs-built_in">gi</span>();<br>			<span class="hljs-built_in">makeroot</span>(r);<br>			<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d\n&quot;</span>, <span class="hljs-built_in">querysubtree</span>(x).mn);<br>		&#125;<br>		<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(op == <span class="hljs-number">4</span>) &#123;<br>			<span class="hljs-keyword">int</span> x = <span class="hljs-built_in">gi</span>();<br>			<span class="hljs-built_in">makeroot</span>(r);<br>			<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d\n&quot;</span>, <span class="hljs-built_in">querysubtree</span>(x).mx);<br>		&#125;<br>		<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(op == <span class="hljs-number">5</span>) &#123;<br>			<span class="hljs-keyword">int</span> x = <span class="hljs-built_in">gi</span>(), y = <span class="hljs-built_in">gi</span>();<br>			<span class="hljs-built_in">makeroot</span>(r);<br>			<span class="hljs-built_in">modifysubtree</span>(x, <span class="hljs-built_in">Tag</span>(<span class="hljs-number">1</span>, y));<br>		&#125;<br>		<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(op == <span class="hljs-number">6</span>) &#123;<br>			<span class="hljs-keyword">int</span> x = <span class="hljs-built_in">gi</span>(), y = <span class="hljs-built_in">gi</span>(), z = <span class="hljs-built_in">gi</span>();<br>			<span class="hljs-built_in">modifychain</span>(x, y, <span class="hljs-built_in">Tag</span>(<span class="hljs-number">1</span>, z));<br>		&#125;<br>		<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(op == <span class="hljs-number">7</span>) &#123;<br>			<span class="hljs-keyword">int</span> x = <span class="hljs-built_in">gi</span>(), y = <span class="hljs-built_in">gi</span>();<br>			<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d\n&quot;</span>, <span class="hljs-built_in">querychain</span>(x, y).mn);<br>		&#125;<br>		<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(op == <span class="hljs-number">8</span>) &#123;<br>			<span class="hljs-keyword">int</span> x = <span class="hljs-built_in">gi</span>(), y = <span class="hljs-built_in">gi</span>();<br>			<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d\n&quot;</span>, <span class="hljs-built_in">querychain</span>(x, y).mx);<br>		&#125;<br>		<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(op == <span class="hljs-number">9</span>) &#123;<br>			<span class="hljs-keyword">int</span> x = <span class="hljs-built_in">gi</span>(), y = <span class="hljs-built_in">gi</span>();<br>			<span class="hljs-built_in">makeroot</span>(r);<br>			<span class="hljs-keyword">if</span>(<span class="hljs-built_in">lca</span>(x, y) == x) <span class="hljs-keyword">continue</span>;<br>			<span class="hljs-built_in">cut</span>(x);<br>			<span class="hljs-built_in">makeroot</span>(y);<br>			<span class="hljs-built_in">ins</span>(x, y);<br>		&#125;<br>		<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(op == <span class="hljs-number">10</span>) &#123;<br>			<span class="hljs-keyword">int</span> x = <span class="hljs-built_in">gi</span>(), y = <span class="hljs-built_in">gi</span>();<br>			<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d\n&quot;</span>, <span class="hljs-built_in">querychain</span>(x, y).sum);<br>		&#125;<br>		<span class="hljs-keyword">else</span> &#123;<br>			<span class="hljs-keyword">int</span> x = <span class="hljs-built_in">gi</span>();<br>			<span class="hljs-built_in">makeroot</span>(r);<br>			<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d\n&quot;</span>, <span class="hljs-built_in">querysubtree</span>(x).sum);<br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/zhouzhendong/p/JunTanFenXi.html">均摊分析 学习笔记 - zzd233 - 博客园 (cnblogs.com)</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90/">复杂度分析</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Splay/">Splay</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Link-Cut-Tree/">Link Cut Tree</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Top-Tree/">Top Tree</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/06/22/sheng-cheng-han-shu/">
+                        <span class="hidden-mobile">生成函数</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <span>框架</span> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <span>| 主题</span> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.4/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
