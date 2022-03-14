@@ -3,10 +3,10 @@
         <title>学习笔记 - 分类 - ouuqqo&#39;s blog</title>
         <link>http://example.org/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
         <description>学习笔记 - 分类 - ouuqqo&#39;s blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><atom:link href="http://example.org/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 14 Mar 2022 00:00:00 &#43;0000</lastBuildDate><atom:link href="http://example.org/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="self" type="application/rss+xml" /><item>
     <title>势能分析</title>
     <link>http://example.org/posts/shi-neng-fen-xi/</link>
-    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <pubDate>Mon, 14 Mar 2022 00:00:00 &#43;0000</pubDate>
     <author>作者</author>
     <guid>http://example.org/posts/shi-neng-fen-xi/</guid>
     <description><![CDATA[Splay 的复杂度证明 记号 记 $siz(x)$ 表示 x 的子树大小，定义节点的势能函数 $\phi(x)=\log_2(siz(x))$，整棵 Splay 的势能 $\Phi=\sum]]></description>
