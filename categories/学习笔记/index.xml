@@ -1,11 +1,9 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>ouuqqo&#39;s blog</title>
-        <link>http://example.org/</link>
-        <description>ouuqqo&#39;s blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language>
-            <atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml" />
-        <item>
+        <title>学习笔记 - 分类 - ouuqqo&#39;s blog</title>
+        <link>http://example.org/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
+        <description>学习笔记 - 分类 - ouuqqo&#39;s blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><atom:link href="http://example.org/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="self" type="application/rss+xml" /><item>
     <title>势能分析</title>
     <link>http://example.org/posts/shi-neng-fen-xi/</link>
     <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
