@@ -29,7 +29,7 @@
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/ouuqqo/ImageHosting/images/20210620154612.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/ouuqqo/ImageHosting/images/20210620153821.png">
 <meta property="article:published_time" content="2022-03-15T08:04:00.000Z">
-<meta property="article:modified_time" content="2022-03-15T16:37:22.256Z">
+<meta property="article:modified_time" content="2022-03-15T20:53:35.524Z">
 <meta property="article:author" content="雪顶猫">
 <meta property="article:tag" content="复杂度分析">
 <meta property="article:tag" content="数据结构">
@@ -325,9 +325,9 @@ siz&#39;(y)siz&#39;(z)&lt;\frac14siz&#39;(x)^2
 <h3 id="记号-1">记号</h3>
 <p><span class="math inline">\(fa(x)\)</span>：x 在辅助树上的父亲，如果 x 为辅助树的根，则为 x 的虚父亲。</p>
 <p><span class="math inline">\(siz(x)\)</span>：所有能通过不断跳到 <span class="math inline">\(fa(x)\)</span> 来到达 x 的点的数量。</p>
-<blockquote>
-<p>只要 <span class="math inline">\(fa(x)\)</span> 无环，则 <span class="math inline">\(siz(x)\le n\)</span> 对任意 x 恒成立，且任意 <span class="math inline">\(fa\)</span> 链上的 <span class="math inline">\(siz\)</span> 从下到上单调递增。</p>
-</blockquote>
+<div class="note note-success">
+            <p>只要 <span class="math inline">\(fa(x)\)</span> 无环，则 <span class="math inline">\(siz(x)\le n\)</span> 对任意 x 恒成立，且任意 <span class="math inline">\(fa\)</span> 链上的 <span class="math inline">\(siz\)</span> 从下到上单调递增。</p>
+          </div>
 <h3 id="access">access</h3>
 <p>可以发现 access 操作在数棵 Splay 中 splay，类似这样：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/ouuqqo/ImageHosting/images/20210620154612.png" srcset="/img/loading.gif" lazyload /></p>
