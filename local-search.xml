@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>生成函数</title>
+    <link href="/2022/03/18/sheng-cheng-han-shu/"/>
+    <url>/2022/03/18/sheng-cheng-han-shu/</url>
+    
+    <content type="html"><![CDATA[<h2 id="形式幂级数">形式幂级数</h2><p>记 <span class="math inline">\(\sum\limits_{i=0}^\infty a_ix^i\)</span> 为形式幂级数，形式幂级数的加减乘微积分及所有初等函数都和多项式相同。</p><p>根据麦克劳林级数定义对数函数和指数函数：</p><p><span class="math display">\[\ln(1-A(x))=-\sum\limits_{i=1}^\infty\frac{A^i(x)}{i}\\\exp(A(x))=\sum\limits_{i=0}^\infty\frac{A^i(x)}{i!}\]</span></p><p>根据欧拉公式定义三角函数：</p><p><span class="math display">\[e^{iA(x)}=i\sin A(x)+\cos A(x)\]</span></p><p>虽然形式幂级数仅在 <span class="math inline">\(x\in(-1,1)\)</span> 收敛，但是 <span class="math inline">\(x\)</span> 只是占位符，我们只是希望能像多项式一样对数列进行方便的运算，并不关心 <span class="math inline">\(x\)</span> 具体的值。</p><h2 id="生成函数">生成函数</h2><p>有一类组合对象 <span class="math inline">\(A\)</span>，<span class="math inline">\(A\)</span> 中的每个对象都有一个叫做大小的自然数。对于每个 <span class="math inline">\(n\)</span> ，大小为 <span class="math inline">\(n\)</span> 的对象数量都是有限的，记为 <span class="math inline">\(a_n\)</span>。</p><p>根据组合对象带不带标号定义两种生成函数：</p><ul><li>普通生成函数（ordinary generating function，OGF）：<span class="math inline">\(A(x)=\sum\limits_{i=0}^\infty a_ix^i\)</span>。</li><li>指数生成函数（exponential generating function，EGF）：<span class="math inline">\(A(x)=\sum\limits_{i=0}^\infty a_i\dfrac{x^i}{i!}\)</span>。</li></ul><h3 id="普通生成函数">普通生成函数</h3><p>普通生成函数描述无标号对象的数量，满足以下运算。</p><h4 id="无交并">无交并</h4><p><span class="math inline">\(size(a)=size(b)=size(c)\)</span></p><p><span class="math display">\[A=B\sqcup C\Rightarrow A(x)=B(x)+C(x)\]</span></p><h4 id="笛卡尔积">笛卡尔积</h4><p><span class="math inline">\(size(a)=size(b)+size(c)\)</span></p><p><span class="math display">\[A=B\times C\Rightarrow A(x)=B(x)\cdot C(x)\]</span></p><h4 id="序列">序列</h4><p>从 <span class="math inline">\(B\)</span> 中取出任意多个对象做笛卡尔积，即 <span class="math inline">\(\varnothing\sqcup B\sqcup B\times B\sqcup B\times B\times B\sqcup...\)</span></p><p><span class="math display">\[A=B^*\Rightarrow A(x)=\sum\limits_{i=0}^\infty B^i(x)=\frac{1}{1-B(x)}\]</span></p><h4 id="环">环</h4><p>从 <span class="math inline">\(B\)</span> 中取出若干个对象排成环（循环同构），环的大小为每个对象的大小之和。</p><p><span class="math display">\[A=CYC(B)\Rightarrow A(x)=-\sum_{k=1}^\infty\frac{\varphi(k)}k\ln\left(1-B(x^k)\right)\]</span></p><div class="note note-success">            <p>对于 <span class="math inline">\(k\)</span> 个元素的环，由 Pólya 定理，其 OGF 为</p><p><span class="math display">\[\begin{aligned}&amp;\frac1k\sum_{i=0}^{k-1}A(x^\frac k{\gcd(k,i)})^{\gcd(k,i)}\\=&amp;\frac1k\sum_{d\mid k}A(x^\frac kd)^d\sum_{i=1}^k[gcd(k,i)=d]\\=&amp;\frac1k\sum_{d\mid k}A(x^\frac kd)^d\sum_{i=1}^\frac kd[gcd(\frac kd,i)=1]\\=&amp;\frac1k\sum_{d\mid k}A(x^\frac kd)^d\varphi(\frac kd)\\=&amp;\frac1k\sum_{d\mid k}A(x^d)^\frac kd\varphi(d)\\\end{aligned}\]</span></p><p>枚举 <span class="math inline">\(k\)</span> 得到</p><p><span class="math display">\[\begin{aligned}&amp;\sum_{k=1}^\infty\frac1k\sum_{d\mid k}\varphi(d)A(x^d)^\frac kd\\=&amp;\sum_{d=1}^\infty\varphi(d)\sum_{k=1}^\infty\frac1{kd}A(x^d)^k\\=&amp;-\sum_{d=1}^\infty\frac{\varphi(d)}d\ln(1-A(x^d))\end{aligned}\]</span></p>          </div><h3 id="指数生成函数">指数生成函数</h3><p>指数生成函数描述有标号对象的数量，满足以下运算。</p><h4 id="无交并-1">无交并</h4><p><span class="math display">\[A(x)=B(x)+C(x)\]</span></p><h4 id="笛卡尔积-1">笛卡尔积</h4><p>因为描述的是有标号对象，做笛卡尔积的时候需要乘一个组合数分配标号，即：</p><p><span class="math display">\[\begin{aligned}a_k&amp;=\sum_{i=0}^k\binom kib_ic_{k-i}\\\frac{a_k}{k!}&amp;=\sum_{i=0}^k\frac{b_i}{i!}\frac{c_{k-i}}{(k-i)!}\end{aligned}\]</span></p><p>可以发现我们的指数生成函数定义刚好在做笛卡尔积的时候自动分配了标号。</p><h4 id="集合">集合</h4><p><span class="math display">\[A(x)=\sum_{k=0}^\infty\frac{B^k(x)}{k!}=\exp(B(x))\]</span></p><h4 id="环-1">环</h4><p><span class="math display">\[A(x)=\sum_{k=1}^\infty\frac{B^k(x)}k=-\ln(1-B(x))\]</span></p><h3 id="小结">小结</h3><p>在组合意义上直接把生成函数看作“一个元素”即可。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>学习笔记</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>数学</tag>
+      
+      <tag>计数</tag>
+      
+      <tag>生成函数</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>势能分析</title>
     <link href="/2022/03/15/shi-neng-fen-xi/"/>
     <url>/2022/03/15/shi-neng-fen-xi/</url>
